@@ -1,11 +1,9 @@
 import "./App.css";
-import { Button } from "@heroui/react";
 
 function App() {
   return (
     <>
-      <Button color="primary">버튼</Button>
-      <div className="text-blue-600">배지</div>
+      <div className="text-3xl font-bold underline">배지</div>
     </>
   );
 }
