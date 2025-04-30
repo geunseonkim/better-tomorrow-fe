@@ -1,19 +1,44 @@
 {
-  "posts": [
+  "videos": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "title": "Would You Risk Drowning for $500,000?",
+      "url": "https://www.youtube.com/embed/uyiG6uw-6pA"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 2,
+      "title": "$456,000 Squid Game In Real Life!",
+      "url": "https://www.youtube.com/embed/0e3GPea1Tyg"
+    },
+    {
+      "id": 3,
+      "title": "I Spent 100 Hours Inside The Pyramids!",
+      "url": "https://www.youtube.com/embed/NDsO1LT_0lw"
+    },
+    {
+      "id": 4,
+      "title": "2,000 People Fight For $5,000,000",
+      "url": "https://www.youtube.com/embed/gs8qfL9PNac"
+    },
+    {
+      "id": 5,
+      "title": "$10,000 Every Day You Survive In The Wilderness",
+      "url": "https://www.youtube.com/embed/U_LlX4t0A9I"
+    },
+    {
+      "id": 6,
+      "title": "$10,000 Every Day You Survive In A Grocery Store",
+      "url": "https://www.youtube.com/embed/tnTPaLOaHz8"
+    },
+    {
+      "id": 7,
+      "title": "I Spent 7 Days In Solitary Confinement",
+      "url": "https://www.youtube.com/embed/K_CbgLpvH9E"
+    },
+    {
+      "id": 8,
+      "title": "I Spent 7 Days Buried Alive",
+      "url": "https://www.youtube.com/embed/7dYTw-jAYkY"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
