@@ -1,0 +1,104 @@
+import React from "react";
+import Banner from "./components/Banner";
+import { Link } from "react-router-dom";
+
+const MainPage = () => {
+  const features = [
+    {
+      step: 1,
+      title: "원어 스크립트화",
+      description: "Youtube 영상의 자막을 자동으로 추출하여 텍스트로 확인",
+    },
+    {
+      step: 2,
+      title: "자막 번역",
+      description: "자막을 번역하여 외국어 영상도 쉽게 이해할 수 있도록 지원",
+    },
+    {
+      step: 3,
+      title: "단어별 사전과 번역 제공",
+      description:
+        "자막에 등장하는 단어를 클릭하여 사전 내용과 번역 예문을 통해 학습 가능",
+    },
+    {
+      step: 4,
+      title: "URL 검색",
+      description: "내가 원하는 동영상 URL을 입력하여 동영상으로 학습 가능",
+    },
+  ];
+
+  return (
+    <div>
+      <Banner />
+
+      {/* 추천 영상 캐러셀 */}
+      <section id="videos" className="w-full py-12 md:py-16">
+        <div className="px-4 md:px-6">
+          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+            <div>
+              <h2 className="text-2xl font-bold md:text-3xl">추천 영상</h2>
+              <p className="text-md pt-2 text-gray-500">
+                자막으로 더 쉽게 이해할 수 있는 영상들을 확인해보세요.
+              </p>
+            </div>
+            <Link
+              to="/recommend"
+              className="flex items-center text-sm font-medium"
+            >
+              모든 영상 보기 &gt;
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 기능 설명 */}
+      <section
+        id="features"
+        className="w-full py-12 md:py-24 lg:py-32 bg-gray-100"
+      >
+        <div className="px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <div className="inline-block rounded-xl bg-black px-3 py-1 text-sm text-white">
+                주요 기능
+              </div>
+              <h2 className="text-3xl font-bold  md:text-4xl">
+                영상을 더 효과적으로 활용해보세요.
+              </h2>
+              <p className="mt-4 max-w-[900px] md:text-xl text-gray-500">
+                SubTube는 YouTube 영상의 자막을 쉽게 확인하고 활용할 수 있는
+                다양한 기능을 제공합니다.
+              </p>
+            </div>
+          </div>
+          <div className="mx-auto grid max-w-2xl items-center gap-6 py-12 lg:grid-cols-2">
+            {features.map((item, idx) => (
+              <div
+                key={item.step}
+                className={`w-xs min-h-[180px] rounded-xl p-8 shadow-md ${
+                  idx % 2 === 0 ? "bg-gray-800" : "bg-[#6e4aef]"
+                }`}
+              >
+                <div className="text-white/40 text-5xl font-bold mb-6">
+                  {item.step}
+                </div>
+                <div className="text-xl text-white font-semibold mb-2">
+                  {item.title}
+                </div>
+                <p className="text-sm text-white">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 사용 방법 */}
+      <section
+        id="how-it-works"
+        className="w-full py-12 md:py-24 lg:py-32"
+      ></section>
+    </div>
+  );
+};
+
+export default MainPage;
