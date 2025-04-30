@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full  bg-white ">
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex gap-2 items-center text-xl font-bold">
           <Link to="/">SubTube</Link>
@@ -15,7 +15,7 @@ const Header = () => {
               href="#videos"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground px-4 py-2"
             >
-              인기영상
+              추천영상
             </a>
             <a
               href="#features"

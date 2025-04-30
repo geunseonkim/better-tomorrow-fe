@@ -93,10 +93,75 @@ const MainPage = () => {
       </section>
 
       {/* 사용 방법 */}
-      <section
-        id="how-it-works"
-        className="w-full py-12 md:py-24 lg:py-32"
-      ></section>
+      <section id="how-it-works" className="w-full py-12 md:py-24 lg:py-32">
+        <div className="px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold md:text-4xl">사용 방법</h2>
+              <p className="max-w-[900px] text-gray-600 text-xl p-2">
+                SubTube는 간단한 3단계로 YouTube 영상의 자막을 확인할 수
+                있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 md:grid-cols-3">
+            <div className="flex flex-col items-center space-y-2 border border-gray-200 rounded-lg p-6 text-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black text-lg font-bold text-white">
+                1
+              </div>
+              <h3 className="text-xl font-bold p-2">시작하기</h3>
+              <p className="text-gray-500 text-sm">
+                보고싶은 동영상을 선택하여 <br />
+                자막과 함께 시청하며 학습할 수 있습니다.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center space-y-2 border border-gray-200 rounded-lg p-6 text-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black text-lg font-bold text-white">
+                2
+              </div>
+              <h3 className="text-xl font-bold p-2">YouTube URL 입력</h3>
+              <p className="text-gray-500 text-sm">
+                한글과 영어 자막이 있는 YouTube 영상의 URL을 입력하여 학습이
+                가능합니다. <br />
+              </p>
+            </div>
+            <div className="flex flex-col items-center space-y-2 border border-gray-200 rounded-lg p-6 text-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black text-lg font-bold text-white">
+                3
+              </div>
+              <h3 className="text-xl font-bold p-2">자막 확인</h3>
+              <p className="text-gray-500 text-sm">
+                영상과 함께 자막을 확인하고, 궁금한 단어는 사전과 번역을 통해
+                학습할 수 있습니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
+        <div className="px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold md:text-4xl">
+                지금 바로 시작하세요
+              </h2>
+              <p className="max-w-[900px] text-gray-500 text-sm p-2">
+                YouTube 영상의 자막을 쉽게 확인하고 활용해보세요.
+              </p>
+            </div>
+            <div className="mx-auto w-full max-w-sm space-y-2">
+              <Link to="/detail">
+                <button className="btn btn-neutral px-6 hover:bg-neutral-800">
+                  무료로 시작하기
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

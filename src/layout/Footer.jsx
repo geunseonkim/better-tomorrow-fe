@@ -4,7 +4,7 @@ Link;
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
+    <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-gray-200">
       <div className="flex gap-2 items-center text-lg font-semibold">
         <span>SubTube</span>
       </div>
