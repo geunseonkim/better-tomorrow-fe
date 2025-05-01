@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// 추천영상 라우터 -> /recommend
+// 시작하기 버튼 -> 추천 영상의 첫번째 영상 디테일 페이지로 이동
+
 const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full  bg-white ">

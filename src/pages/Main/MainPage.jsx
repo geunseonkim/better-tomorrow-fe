@@ -2,6 +2,11 @@ import React from "react";
 import Banner from "./components/Banner";
 import { Link } from "react-router-dom";
 
+// 추천 영상 -> 큐레이팅 방식으로 변경 ex. "CNN의 뉴스로 영어 공부하기" 등
+// 2-3개의 캐러셀 구성, 모든 영상 보기 x
+// 제일 하단 무료로 시작하기 버튼 클릭 시 -> 추천 첫번째 영상 디테일 페이지로 이동
+// 시간 남으면 scrollTop 버튼 추가
+
 const MainPage = () => {
   const features = [
     {
