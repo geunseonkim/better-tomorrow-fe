@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../utils/api";
 
-// const playlistId = "PLoSWVnSA9vG8SK6-_45PAu6RVTaP1zXHf";  //예시
+// const playlistId = "PLoSWVnSA9vG8SK6-_45PAu6RVTaP1zXHf"; //예시
 
 const getVideosByPlaylist = async (playlistId) => {
   const { data } = await api.get("/playlistItems", {

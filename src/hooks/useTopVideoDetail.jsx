@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import api from "../utils/api";
+// import { useQuery } from "@tanstack/react-query";
+// import api from "../utils/api";
 
+// 원래썼던 코드
 // const fetchTopVideoDetail = (videoIds) => {
 //   return api.get("/videos", {
 //     params: {
@@ -21,22 +22,22 @@ import api from "../utils/api";
 // };
 
 //UI + 디자인용 코드
-const fixedVideoIds = ["U_LlX4t0A9I", "K_CbgLpvH9E", "NDsO1LT_0lw", "uyiG6uw-6pA"];
+// const fixedVideoIds = ["U_LlX4t0A9I", "K_CbgLpvH9E", "NDsO1LT_0lw", "uyiG6uw-6pA"];
 
-const fetchTopVideoDetail = () => {
-  return api.get("/videos", {
-    params: {
-      part: "snippet,statistics,contentDetails",
-      id: fixedVideoIds.join(","),
-      key: import.meta.env.VITE_YOUTUBE_API_KEY,
-    },
-  });
-};
+// const fetchTopVideoDetail = () => {
+//   return api.get("/videos", {
+//     params: {
+//       part: "snippet,statistics,contentDetails",
+//       id: fixedVideoIds.join(","),
+//       key: import.meta.env.VITE_YOUTUBE_API_KEY,
+//     },
+//   });
+// };
 
-export const useTopVideoDetailQuery = () => {
-  return useQuery({
-    queryKey: ["topVideoDetail"],
-    queryFn: fetchTopVideoDetail,
-    select: (result) => result.data.items,
-  });
-};
+// export const useTopVideoDetailQuery = () => {
+//   return useQuery({
+//     queryKey: ["topVideoDetail"],
+//     queryFn: fetchTopVideoDetail,
+//     select: (result) => result.data.items,
+//   });
+// };
