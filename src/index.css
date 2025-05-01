@@ -1,0 +1,10 @@
+.tsqd-main-panel {
+  position: absolute;
+  top: 20%;
+}
+.tsqd-query-details-container {
+  position: fixed;
+  right: 0%;
+  overflow-y: scroll;
+  height: 100%;
+}

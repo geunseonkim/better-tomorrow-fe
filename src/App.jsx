@@ -9,9 +9,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
-        <Route path="detail">
-          <Route path=":id" element={<DetailPage />} />
-        </Route>
+        <Route path="/detail" element={<DetailPage />} />
       </Route>
     </Routes>
   );
