@@ -7,17 +7,14 @@ import Carousel from "./common/Carousel";
 import MultiCarousel from "./pages/MultiCarousel/MultiCarousel";
 function App() {
   return (
-    // <Routes>
-    //   <Route path="/" element={<Layout />}>
-    //     <Route index element={<MainPage />} />
-    //     <Route path="detail">
-    //       <Route path=":id" element={<DetailPage />} />
-    //     </Route>
-    //   </Route>
-    // </Routes>
-    <div>
-      <MultiCarousel />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<MainPage />} />
+        <Route path="detail">
+          <Route path=":id" element={<DetailPage />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 
