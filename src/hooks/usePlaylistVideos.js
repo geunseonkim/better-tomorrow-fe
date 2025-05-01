@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "../utils/api";
+import api from "../utils/youtubeApi";
 
 // const playlistId = "PLoSWVnSA9vG8SK6-_45PAu6RVTaP1zXHf"; //예시
 
