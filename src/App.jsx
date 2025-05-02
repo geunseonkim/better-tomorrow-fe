@@ -5,6 +5,7 @@ import MainPage from "./pages/Main/MainPage";
 import DetailPage from "./pages/Detail/DetailPage";
 import Carousel from "./common/Carousel";
 import MultiCarousel from "./pages/MultiCarousel/MultiCarousel";
+
 function App() {
   return (
     <Routes>

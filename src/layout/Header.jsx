@@ -4,7 +4,7 @@ import Search from "../common/Search";
 
 // 모바일 버전 디자인 수정
 // 디테일 페이지 검색창 모바일 버전 -> 위치 조정
-const Header = () => {
+const Header = ({ onStartClick }) => {
   const location = useLocation();
   const isDetailPage = location.pathname.startsWith("/detail");
 
@@ -44,11 +44,13 @@ const Header = () => {
             >
               사용방법
             </a>
-            <Link>
-              <button className="btn btn-neutral text-sm font-medium hover:bg-neutral-700 px-4 py-2">
-                시작하기
-              </button>
-            </Link>
+
+            <button
+              className="btn btn-neutral text-sm font-medium hover:bg-neutral-700 px-4 py-2"
+              onClick={onStartClick}
+            >
+              시작하기
+            </button>
           </nav>
         </div>
       </div>

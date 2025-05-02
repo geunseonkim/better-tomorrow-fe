@@ -40,6 +40,10 @@ const Banner = () => {
 
         {/* url 입력 폼 */}
         <Search />
+        <p className="text-sm text-white/70 mt-4">
+          <span className="font-bold">Tip : </span> YouTube에서 자막(CC) 버튼이
+          활성화된 영상을 찾아보세요.
+        </p>
       </div>
     </section>
   );

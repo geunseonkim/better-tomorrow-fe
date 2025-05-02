@@ -1,9 +1,18 @@
 import React from "react";
 import Banner from "./components/Banner";
-import { Link } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import MultiCarousel from "../MultiCarousel/MultiCarousel";
 
 const MainPage = () => {
+  const { setMainVideoId, mainVideoId } = useOutletContext();
+  const navigate = useNavigate();
+
+  const handleFreeStartClick = () => {
+    if (mainVideoId) {
+      navigate(`/detail/${mainVideoId}`);
+    }
+  };
+
   const features = [
     {
       step: 1,
@@ -35,25 +44,17 @@ const MainPage = () => {
       {/* 추천 영상 캐러셀 */}
       <section id="videos" className="w-full py-12 md:py-16">
         <div className="px-4 md:px-6">
-          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-            <div>
-              <h2 className="text-2xl font-bold md:text-3xl">추천 영상</h2>
-              <p className="text-md pt-2 text-gray-500">
-                자막으로 더 쉽게 이해할 수 있는 영상들을 확인해보세요.
-              </p>
-            </div>
-            <Link to="/recommend" className="flex items-center text-sm font-medium">
-              모든 영상 보기 &gt;
-            </Link>
-          </div>
           <div>
-            <MultiCarousel />
+            <MultiCarousel onMainVideoIdReady={setMainVideoId} />
           </div>
         </div>
       </section>
 
       {/* 기능 설명 */}
-      <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
+      <section
+        id="features"
+        className="w-full py-12 md:py-24 lg:py-32 bg-gray-100"
+      >
         <div className="px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
@@ -64,8 +65,8 @@ const MainPage = () => {
                 영상을 더 효과적으로 활용해보세요.
               </h2>
               <p className="mt-4 max-w-[900px] md:text-xl text-gray-500">
-                SubTube는 YouTube 영상의 자막을 쉽게 확인하고 활용할 수 있는 다양한
-                기능을 제공합니다.
+                SubTube는 YouTube 영상의 자막을 쉽게 확인하고 활용할 수 있는
+                다양한 기능을 제공합니다.
               </p>
             </div>
           </div>
@@ -97,7 +98,8 @@ const MainPage = () => {
             <div className="space-y-2">
               <h2 className="text-3xl font-bold md:text-4xl">사용 방법</h2>
               <p className="max-w-[900px] text-gray-600 text-xl p-2">
-                SubTube는 간단한 3단계로 YouTube 영상의 자막을 확인할 수 있습니다.
+                SubTube는 간단한 3단계로 YouTube 영상의 자막을 확인할 수
+                있습니다.
               </p>
             </div>
           </div>
@@ -130,8 +132,8 @@ const MainPage = () => {
               </div>
               <h3 className="text-xl font-bold p-2">자막 확인</h3>
               <p className="text-gray-500 text-sm">
-                영상과 함께 자막을 확인하고, 궁금한 단어는 사전과 번역을 통해 학습할
-                수 있습니다.
+                영상과 함께 자막을 확인하고, 궁금한 단어는 사전과 번역을 통해
+                학습할 수 있습니다.
               </p>
             </div>
           </div>
@@ -150,11 +152,12 @@ const MainPage = () => {
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
-              <Link to="/detail">
-                <button className="btn btn-neutral px-6 hover:bg-neutral-800">
-                  무료로 시작하기
-                </button>
-              </Link>
+              <button
+                onClick={handleFreeStartClick}
+                className="btn btn-neutral px-6 hover:bg-neutral-800"
+              >
+                무료로 시작하기
+              </button>
             </div>
           </div>
         </div>
