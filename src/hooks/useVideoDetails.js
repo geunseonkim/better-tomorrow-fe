@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "../utils/api";
+import api from "../utils/youtubeApi";
 import { formatDuration, formatDate } from "../utils/dataFormatUtils";
 
 const getVideoDetails = async (videoIds) => {
