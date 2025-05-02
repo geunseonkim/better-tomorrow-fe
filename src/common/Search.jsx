@@ -28,7 +28,7 @@ const Search = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const extractedId = extractVideoId(url);
+    const extractedId = extractVideoId(url); // 유튜브 URL에서 비디오 ID 추출
 
     if (extractedId) {
       setShowError(false);
