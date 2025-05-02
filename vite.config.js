@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     open: true,
-    proxy: {
-      "/mockvideos": "http://localhost:3000",
-    },
+    // proxy: {
+    //   "/mockvideos": "http://localhost:3000",
+    // },
   },
 });

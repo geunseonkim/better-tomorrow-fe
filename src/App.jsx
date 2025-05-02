@@ -4,6 +4,7 @@ import Layout from "./layout/Layout";
 import MainPage from "./pages/Main/MainPage";
 import DetailPage from "./pages/Detail/DetailPage";
 import RecommendVideos from "./pages/RecommendVideos/RecommendVideos";
+import MultiCarousel from "./pages/MultiCarousel/MultiCarousel";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
     // </Routes>
     <div>
       <RecommendVideos />
+      {/* <MultiCarousel /> */}
     </div>
   );
 }

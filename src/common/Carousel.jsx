@@ -44,8 +44,6 @@ const Carousel = ({
             swiper.navigation.init();
             swiper.navigation.update();
           }}
-          // slidesPerView={4}
-          // slidesPerGroup={2}
           breakpoints={breakpoints}
           spaceBetween={40}
           className="h-full"
