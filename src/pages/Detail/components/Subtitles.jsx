@@ -8,37 +8,73 @@ const Subtitles = ({ currentTime, setCurrentTime, player }) => {
     useCaptionDataQuery(videoId);
   const [currentSubIdx, setCurrentSubIdx] = useState("");
   const captionRefs = useRef([]);
+  const containerRef = useRef(null);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const scrollTimeoutRef = useRef(null);
 
   const getSubByTime = () => {
     if (!englishCaption || englishCaption.length === 0) return;
+
     for (let i = 0; i < englishCaption.length - 1; i++) {
-      const caption = englishCaption[i + 1];
-      if (caption["start"] > currentTime) {
-        const index = i;
-        if (currentSubIdx !== index) setCurrentSubIdx(index);
+      const nextCaption = englishCaption[i + 1];
+      if (nextCaption["start"] > currentTime) {
+        if (currentSubIdx !== i) {
+          setCurrentSubIdx(i);
+          if (isUserScrolling) return;
+
+          const parentElement = captionRefs?.current?.[i].parentElement; // 부모
+          const captionElement = captionRefs?.current?.[i]; // 자막
+
+          const offset = captionElement.offsetTop - parentElement.offsetTop;
+
+          if (offset > 180) {
+            parentElement.scrollTo({
+              top: offset - 180,
+              behavior: "smooth",
+            });
+          }
+        }
         return;
       }
     }
   };
-  const test = (startTime) => {
+  const jumpTo = (startTime) => {
     setCurrentTime(Number(startTime));
     player.seekTo(Number(startTime), true);
   };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      setIsUserScrolling(true);
+      clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsUserScrolling(false);
+      }, 1000); // 1초 후 자동 스크롤 허용
+    };
+
+    container.addEventListener("scroll", handleScroll);
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
+
   useEffect(() => {
     getSubByTime();
-    if (captionRefs.current[currentSubIdx]) {
-      captionRefs.current[currentSubIdx].scrollIntoView({
-        behavior: "smooth", // 부드러운 스크롤
-        block: "center", // 가운데 정렬 (또는 "start", "end")
-      });
-    }
   }, [currentTime]);
 
   if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="p-4">
-      <div className="space-y-1 lg:max-h-[600px] max-h-[300px] overflow-y-auto sm:px-2">
+      <div
+        ref={containerRef}
+        className="space-y-1 lg:max-h-[600px] max-h-[300px] overflow-y-auto sm:px-2"
+      >
         {englishCaption &&
           koreanCaption &&
           englishCaption.map((caption, index) => (
@@ -53,7 +89,7 @@ const Subtitles = ({ currentTime, setCurrentTime, player }) => {
                 className={`w-6 h-6 text-purple-500 opacity-0 group-hover:opacity-100 ${
                   currentSubIdx === index ? "opacity-100" : ""
                 }`}
-                onClick={() => test(caption["start"])}
+                onClick={() => jumpTo(caption["start"])}
               />
               <div className="flex flex-col max-w-[90%] sm:text-base text-sm">
                 <div>
