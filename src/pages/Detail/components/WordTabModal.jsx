@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useWordDetails } from "../../../hooks/useWordDetail";
+import { useWordDetails } from "../../../hooks/useWordDetails";
 
 const WordTabModal = ({ text, to }) => {
   const proxyUrl = "http://15.223.105.115";
