@@ -3,8 +3,12 @@ import localApi from "../utils/localApi";
 import axios from "axios";
 
 //trans
-const fetchTranslation = async ({ text, to }) => {
-  const res = await localApi.post("/translate", { text, to });
+// const fetchTranslation = async ({ text, to }) => {
+//   const res = await localApi.post("/translate", { text, to });
+//   return res.data;
+// };
+const fetchTranslation = async ({ text, to, proxy }) => {
+  const res = await localApi.post("/translate-proxy", { text, to, proxy });
   return res.data;
 };
 
@@ -22,7 +26,7 @@ const fetchSynAnt = async (text) => {
     params: { rel_syn: text },
   });
   const antRes = await axios.get("https://api.datamuse.com/words", {
-    params: { res_ant: word },
+    params: { res_ant: text },
   });
   return {
     synonyms: synRes.data,
@@ -30,11 +34,21 @@ const fetchSynAnt = async (text) => {
   };
 };
 
-export const useWordDetails = () => {
-  //trans
-  const useTranslationMutation = useMutation({
-    mutationKey: ["translation"],
-    mutationFn: fetchTranslation,
+export const useWordDetails = (text, to, proxy, enabled = "true") => {
+  //Trans
+  //   const useTranslationQuery = useQuery({
+  //     queryKey: ["translation", text, to],
+  //     queryFn: () => fetchTranslation({ text, to }),
+  //     enabled: !!(enabled && text && to),
+  //     staleTime: 1000 * 60 * 60,
+  //     refetchOnWindowFocus: false,
+  //   });
+  const useTranslationQuery = useQuery({
+    queryKey: ["/translate-proxy", text, to, proxy], // proxy 값을 쿼리 키에 추가
+    queryFn: () => fetchTranslation({ text, to, proxy }), // proxy 값을 전달
+    enabled: !!(enabled && text && to),
+    staleTime: 1000 * 60 * 60,
+    refetchOnWindowFocus: false,
   });
 
   //Def
@@ -42,6 +56,8 @@ export const useWordDetails = () => {
     queryKey: ["definition", text],
     queryFn: () => fetchDefinition(text),
     enabled,
+    staleTime: 1000 * 60 * 60,
+    refetchOnWindowFocus: false,
   });
 
   //SynAnt
@@ -49,38 +65,29 @@ export const useWordDetails = () => {
     queryKey: ["syn-ant", text],
     queryFn: () => fetchSynAnt(text),
     enabled,
+    staleTime: 1000 * 60 * 60,
+    refetchOnWindowFocus: false,
   });
+
+  return {
+    translation: {
+      text: useTranslationQuery.data,
+      isPending: useTranslationQuery.isPending,
+      isError: useTranslationQuery.isError,
+      error: useTranslationQuery.error,
+    },
+    definition: {
+      data: useDefinitionQuery.data,
+      isLoading: useDefinitionQuery.isFetching,
+      isError: useDefinitionQuery.isError,
+      error: useDefinitionQuery.error,
+    },
+    synonymsAntonyms: {
+      synonyms: useSynAntQuery.data?.synonyms || [],
+      antonyms: useSynAntQuery.data?.antonyms || [],
+      isLoading: useSynAntQuery.isFetching,
+      isError: useSynAntQuery.isError,
+      error: useSynAntQuery.error,
+    },
+  };
 };
-
-useEffect(() => {
-  if (enabled && text && to) {
-    useTranslationMutation.mutate({ text, to });
-  }
-}, [enabled, text, to]);
-
-return {
-  translation: {
-    text: useTranslationMutation.data,
-    isPending: useTranslationMutation.isPending,
-  },
-  definition: {
-    data: useDefinitionQuery.data,
-    isLoading: useDefinitionQuery.isFetching,
-  },
-  synonymsAntonyms: {
-    synonyms: useSynAntQuery.data?.synonyms,
-    antonyms: useSynAntQuery.data?.antonyms,
-    isLoading: useSynAntQuery.isFetching,
-  },
-};
-
-// const { definition, synonymsAntonyms, translation } = useWordDetail({
-//     word: selectedWord,
-//     to: "ko",  // 예를 들어 한국어로 번역
-//     enabled: isModalOpen,  // 모달 열리면 데이터를 가져옴
-//   });
-
-//   // 각 섹션별로 데이터에 접근 가능
-//   const { data: definitionData, isLoading: isDefLoading } = definition;
-//   const { synonyms, antonyms, isLoading: isSynAntLoading } = synonymsAntonyms;
-//   const { text: translatedText, isPending: isTranslating } = translation;
