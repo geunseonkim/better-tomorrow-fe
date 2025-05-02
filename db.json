@@ -2,43 +2,74 @@
   "videos": [
     {
       "id": 1,
-      "title": "Would You Risk Drowning for $500,000?",
-      "url": "https://www.youtube.com/embed/uyiG6uw-6pA"
+      "videoId": "uyiG6uw-6pA",
+      "views": "4.1M views",
+      "uploaded": "3 months ago",
+      "time": "25:03",
+      "channel": "T-Series"
     },
     {
       "id": 2,
       "title": "$456,000 Squid Game In Real Life!",
-      "url": "https://www.youtube.com/embed/0e3GPea1Tyg"
+      "url": "https://www.youtube.com/embed/0e3GPea1Tyg",
+      "time": "28:52",
+      "channel": "MrBeast",
+      "views": "3.3M views",
+      "uploaded": "1 week ago"
     },
     {
       "id": 3,
       "title": "I Spent 100 Hours Inside The Pyramids!",
-      "url": "https://www.youtube.com/embed/NDsO1LT_0lw"
+      "url": "https://www.youtube.com/embed/NDsO1LT_0lw",
+      "views": "4.6M views",
+      "uploaded": "3 months ago",
+      "time": "28:04",
+      "channel": "T-Series"
     },
     {
       "id": 4,
       "title": "2,000 People Fight For $5,000,000",
-      "url": "https://www.youtube.com/embed/gs8qfL9PNac"
+      "url": "https://www.youtube.com/embed/gs8qfL9PNac",
+      "views": "8.8M views",
+      "uploaded": "3 days ago",
+      "time": "12:30",
+      "channel": "T-Series"
     },
     {
       "id": 5,
       "title": "$10,000 Every Day You Survive In The Wilderness",
-      "url": "https://www.youtube.com/embed/U_LlX4t0A9I"
+      "url": "https://www.youtube.com/embed/U_LlX4t0A9I",
+      "views": "7.4M views",
+      "uploaded": "5 days ago",
+      "time": "27:11",
+      "channel": "MrBeast"
     },
     {
       "id": 6,
       "title": "$10,000 Every Day You Survive In A Grocery Store",
-      "url": "https://www.youtube.com/embed/tnTPaLOaHz8"
+      "url": "https://www.youtube.com/embed/tnTPaLOaHz8",
+      "views": "9.1M views",
+      "uploaded": "1 month ago",
+      "time": "15:34",
+      "channel": "MrBeast"
     },
     {
       "id": 7,
       "title": "I Spent 7 Days In Solitary Confinement",
-      "url": "https://www.youtube.com/embed/K_CbgLpvH9E"
+      "url": "https://www.youtube.com/embed/K_CbgLpvH9E",
+      "views": "3.0M views",
+      "uploaded": "5 months ago",
+      "time": "11:59",
+      "channel": "T-Series"
     },
     {
       "id": 8,
       "title": "I Spent 7 Days Buried Alive",
-      "url": "https://www.youtube.com/embed/7dYTw-jAYkY"
+      "url": "https://www.youtube.com/embed/7dYTw-jAYkY",
+      "views": "2.7M views",
+      "uploaded": "10 months ago",
+      "time": "16:24",
+      "channel": "MrBeast"
     }
   ]
 }
