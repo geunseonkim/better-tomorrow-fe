@@ -1,65 +1,24 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import Video from "./components/Video";
+import Subtitles from "./components/Subtitles";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
 const DetailPage = () => {
-  const { id } = useParams();
-
-  const videoUrl = `https://www.youtube.com/embed/${id}`;
+  const [currentTime, setCurrentTime] = useState(0);
+  const [player, setPlayer] = useState(null);
 
   return (
     <div className="min-h-screen py-6 px-4">
       <div className="flex flex-col lg:flex-row gap-6">
         {/* 비디오 플레이어 */}
-        <div className="lg:w-8/12">
-          <div className="rounded-md overflow-hidden bg-black aspect-video relative">
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src={videoUrl}
-              title="YouTube video player"
-              allowFullScreen
-            ></iframe>
-          </div>
-          {/* 비디오 정보 */}
-          <div className="mt-4">
-            <h1 className="text-xl font-bold">타이틀</h1>
-            <div className="flex items-center justify-between mt-2">
-              <div className="flex items-center gap-2">
-                <div className="h-10 w-10 rounded-full border border-gray-200"></div>
-                <div>
-                  <p className="font-medium">채널명</p>
-                  <p className="text-sm text-muted-foreground">조회수 • 날짜</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button className="btn">
-                  Like
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2.5"
-                    stroke="currentColor"
-                    className="size-[1.2em]"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div className="mt-4 p-4 rounded-md bg-gray-100/50">
-              <p className="text-sm">설명 블라블라</p>
-            </div>
-          </div>
-        </div>
+        <Video
+          currentTime={currentTime}
+          setCurrentTime={setCurrentTime}
+          player={player}
+          setPlayer={setPlayer}
+        />
         {/* 자막 */}
-        <div className="lg:w-4/12 border border-gray-100 rounded-md overflow-hidden">
+        <div className="lg:w-4/12 border border-gray-100 rounded-md overflow-hidden h-fit">
           <div className="bg-gray-100/50 p-2">
             <div className="flex gap-1">
               <button className="btn flex-1">
@@ -68,10 +27,11 @@ const DetailPage = () => {
               </button>
             </div>
           </div>
-
-          <div className="p-4">
-            <div className="space-y-1 max-h-[500px] overflow-y-auto pr-2"></div>
-          </div>
+          <Subtitles
+            currentTime={currentTime}
+            setCurrentTime={setCurrentTime}
+            player={player}
+          />
         </div>
       </div>
       {/* 캐러셀 */}
@@ -90,3 +50,49 @@ const DetailPage = () => {
 };
 
 export default DetailPage;
+
+// import React from "react";
+// import { usePlaylistVideosQuery } from "../../hooks/usePlaylistVideos";
+// import { useVideoDetailsQuery } from "../../hooks/useVideoDetails";
+// import { videoDataToString } from "../../utils/dataFormatUtils";
+
+// const DetailPage = () => {
+//   const { data: playlist, isLoading: playlistLoading } =
+//     usePlaylistVideosQuery();
+
+//   const {
+//     data: videoDetails,
+//     isLoading: detailLoading,
+//     isError,
+//     error,
+//   } = useVideoDetailsQuery(videoDataToString(playlist));
+
+//   const handleClick = (data) => {
+//     console.log(data);
+//   };
+
+//   if (playlistLoading || detailLoading) return <div>Loading...</div>;
+//   if (isError) {
+//     console.log(error);
+//     return <div>Error: {error.message}</div>;
+//   }
+
+//   return (
+//     <div>
+//       <button
+//         className="bg-blue-500 text-white px-4 py-2 rounded"
+//         onClick={() => handleClick(playlist)}
+//       >
+//         get playlist
+//       </button>
+//       <button
+//         className="bg-blue-500 text-white px-4 py-2 rounded"
+//         onClick={() => handleClick(videoDetails)}
+//       >
+//         get video details
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default DetailPage;
