@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 // 비디오 데이터를 문자열로 변환하는 함수
 export const videoDataToString = (videoData) => {
   if (!Array.isArray(videoData)) return "";
