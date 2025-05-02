@@ -1,25 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMockVideosQuery } from "../../hooks/useMockVideos";
 import { useVideoDetailsQuery } from "../../hooks/useVideoDetails";
 import { videoDataToString } from "../../utils/dataFormatUtils";
-import useVideoStore from "../../stores/useVideoStore";
 import VideoCard from "../../common/VideoCard";
 
 const filterNames = ["전체", "건강", "디자인", "과학", "기후변화"];
 
 const RecommendVideos = () => {
   const { data: mockVideos = [] } = useMockVideosQuery();
-  const setVideos = useVideoStore((state) => state.setVideos);
   const idsParam = videoDataToString(mockVideos);
-  const { data: details = [] } = useVideoDetailsQuery(idsParam, {
-    enabled: !!idsParam,
-  });
-
-  useEffect(() => {
-    if (details.length > 0) {
-      setVideos(details);
-    }
-  }, [details]);
+  const { data: details = [] } = useVideoDetailsQuery(idsParam);
 
   return (
     <div className="min-h-screen">
