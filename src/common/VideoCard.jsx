@@ -5,7 +5,7 @@ const VideoCard = ({ video }) => {
   // console.log("DDDDDD", video);
 
   return (
-    <div className="overflow-hidden rounded-lg w-full h-auto min-h-70 border border-gray-300 flex flex-col">
+    <div className="overflow-hidden rounded-lg w-full h-auto min-h-70 border border-gray-300 flex flex-col cursor-pointer">
       <div className="relative w-full aspect-video overflow-hidden">
         <img
           src={video?.thumbnail}

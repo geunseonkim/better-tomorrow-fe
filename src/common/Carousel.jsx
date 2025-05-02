@@ -57,13 +57,13 @@ const Carousel = ({
         {/* 버튼 스타일 커스텀 */}
         <button
           ref={prevRef}
-          className="custom-left-arrow absolute left-[-15px] top-1/2 -translate-y-1/2 z-10 bg-white border border-neutral-300 rounded-full w-12 h-12 flex justify-center items-center hover:bg-neutral-200"
+          className="custom-left-arrow absolute left-[-15px] top-1/2 -translate-y-1/2 z-10 bg-white border border-neutral-300 rounded-full w-12 h-12 flex justify-center items-center hover:bg-neutral-200 cursor-pointer"
         >
           <IoIosArrowBack className="w-6 h-6" />
         </button>
         <button
           ref={nextRef}
-          className="custom-right-arrow absolute right-[-15px] top-1/2 -translate-y-1/2 z-10 bg-white border border-neutral-300 rounded-full w-12 h-12 flex justify-center items-center hover:bg-neutral-200"
+          className="custom-right-arrow absolute right-[-15px] top-1/2 -translate-y-1/2 z-10 bg-white border border-neutral-300 rounded-full w-12 h-12 flex justify-center items-center hover:bg-neutral-200 cursor-pointer"
         >
           <IoIosArrowForward className="w-6 h-6" />
         </button>
