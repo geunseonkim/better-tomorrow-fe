@@ -11,6 +11,7 @@ import { videoDataToString } from "../utils/dataFormatUtils";
 
 const Carousel = ({
   playlistId = "PLoSWVnSA9vG8SK6-_45PAu6RVTaP1zXHf",
+
   breakpoints = {
     0: { slidesPerView: 1, slidesPerGroup: 1 },
     640: { slidesPerView: 2, slidesPerGroup: 2 },
@@ -24,6 +25,7 @@ const Carousel = ({
   const { data: playlistData } = usePlaylistVideosQuery(playlistId);
   const idsParam = videoDataToString(playlistData);
   const { data: videos } = useVideoDetailsQuery(idsParam);
+  // console.log("iddddds", playlistData); //mock video용
 
   return (
     <div className="w-full py-5 flex justify-center">
