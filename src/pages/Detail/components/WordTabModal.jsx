@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useWordDetails } from "../../../hooks/useWordDetails";
+import { FaVolumeUp } from "react-icons/fa";
 
 const WordTabModal = ({ text, to }) => {
   const proxyUrl = "http://15.223.105.115";
 
   const [tab, setTab] = useState("def");
   const { translation, definition, synonymsAntonyms } = useWordDetails(
-    text || "student",
+    text || "coffee",
     to || "ko",
     proxyUrl,
     true
@@ -52,6 +53,14 @@ const WordTabModal = ({ text, to }) => {
     return <p>이 단어의 데이터가 존재하지 않습니다.</p>;
   }
 
+  //audio
+  const usAudio = defData?.phonetics?.[1]?.audio;
+  const gbAudio = defData?.phonetics?.[0]?.audio;
+  const playAudio = (url) => {
+    const audio = new Audio(url);
+    audio.play();
+  };
+
   // console.log("transText", transText);
   console.log("defData", defData);
   console.log("synonyms", synonyms, "antonyms", antonyms);
@@ -60,7 +69,7 @@ const WordTabModal = ({ text, to }) => {
     <>
       {/* 모달창 열기 */}
       <label htmlFor="dictionary-modal">
-        <span className="cursor-pointer">{text || "student"}</span>
+        <span className="cursor-pointer">{text || "coffee"}</span>
       </label>
 
       {/* 모달창 */}
@@ -71,23 +80,70 @@ const WordTabModal = ({ text, to }) => {
         <div className="modal-box w-full sm:w-[500px] md:w-[600px] lg:w-[700px] h-[300px] overflow-y-auto">
           {/* 단어 + 뜻 */}
           <div>
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold">{text || "student"}</h2>
-              <span className="text-md text-gray-300">
-                {transText.translatedText}
-              </span>
+            <div>
+              <h2 className="text-3xl font-bold">{text || "coffee"}</h2>
+              <p className="text-md my-1 mb-3">
+                1. {transText?.translatedText}
+              </p>
+              <p className="text-xs text-gray-300 space-x-2">
+                <span>Pronunciation</span>
+                US{" "}
+                <span style={{ fontSize: "0.7rem" }}>
+                  [{defData?.phonetics?.[1].text || "N/A"}]
+                </span>
+                GB{" "}
+                <span style={{ fontSize: "0.7rem" }}>
+                  [{defData?.phonetics?.[0].text || "N/A"}]
+                </span>
+              </p>
             </div>
             <hr className="my-3 border-t border-gray-300" />
           </div>
 
+          {/* 오디오 */}
+          <div className="my-3 flex space-x-2">
+            {defData?.phonetics?.map((phonetic, i) => {
+              if (phonetic.audio) {
+                const isUS = phonetic.audio.includes("us");
+                const isUK = phonetic.audio.includes("uk");
+
+                let country = "";
+                let audioColor = "";
+
+                if (isUS) {
+                  country = "US";
+                  audioColor = "bg-blue-500";
+                } else if (isUK) {
+                  country = "UK";
+                  audioColor = "bg-gray-500";
+                } else {
+                  country = "";
+                  audioColor = "bg-green-500";
+                }
+                return (
+                  <div
+                    key={i}
+                    className={`flex items-center justify-between w-14 h-6 rounded-full ${audioColor} text-white cursor-pointer px-2`}
+                    onClick={() => playAudio(phonetic.audio)}
+                  >
+                    <FaVolumeUp size={16} />
+                    <span className="text-xs">{country}</span>
+                  </div>
+                );
+              }
+
+              return null;
+            })}
+          </div>
+
           {/* 탭 카테고리 */}
-          <div role="tablist" className="tabs tabs-border mb-3">
+          <div role="tablist" className="tabs tabs-border mb-5">
             <a
               role="tab"
               className={`tab ${tab === "def" ? "tab-active" : ""}`}
               onClick={() => setTab("def")}
             >
-              영영 정의
+              영영
             </a>
             <a
               role="tab"
@@ -114,7 +170,7 @@ const WordTabModal = ({ text, to }) => {
                     <h3 className="font-bold text-lg text-blue-700">
                       {meaning.partOfSpeech}
                     </h3>
-                    <ul className="list-disc ml-5 space-y-2">
+                    <ul className="list-decimal ml-5 space-y-2">
                       {meaning.definitions.map((def, inx) => (
                         <li key={inx}>
                           <p className="text-sm">{def.definition}</p>
