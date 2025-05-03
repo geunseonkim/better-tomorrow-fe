@@ -7,18 +7,15 @@ import RecommendVideos from "./pages/RecommendVideos/RecommendVideos";
 
 function App() {
   return (
-    // <Routes>
-    //   <Route path="/" element={<Layout />}>
-    //     <Route index element={<MainPage />} />
-    //     <Route path="detail">
-    //       <Route path=":id" element={<DetailPage />} />
-    //     </Route>
-    //     <Route path="recommend" element={<RecommendVideos />} />
-    //   </Route>
-    // </Routes>
-    <div>
-      <RecommendVideos />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<MainPage />} />
+        <Route path="detail">
+          <Route path=":id" element={<DetailPage />} />
+        </Route>
+        <Route path="recommend" element={<RecommendVideos />} />
+      </Route>
+    </Routes>
   );
 }
 
