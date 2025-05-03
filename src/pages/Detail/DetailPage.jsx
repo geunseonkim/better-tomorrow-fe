@@ -1,5 +1,5 @@
-import React, { use, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Video from "./components/Video";
 import Subtitles from "./components/Subtitles";
 import { IoDocumentTextOutline } from "react-icons/io5";
@@ -11,12 +11,7 @@ const DetailPage = () => {
   const [player, setPlayer] = useState(null);
   const { id } = useParams();
   const [searchWord, setSearchWord] = useState("");
-  const {
-    data,
-    isLoading: videoLoading,
-    isError,
-    error,
-  } = useVideoDetailsQuery(id);
+  const { data, isLoading: videoLoading, isError, error } = useVideoDetailsQuery(id);
   const navigate = useNavigate();
 
   useEffect(() => {
