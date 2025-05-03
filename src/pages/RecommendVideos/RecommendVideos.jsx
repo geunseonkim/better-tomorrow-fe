@@ -10,7 +10,8 @@ import {
   MdArrowBackIos,
   MdArrowForwardIos,
 } from "react-icons/md";
-
+import Footer from "../../layout/Footer";
+import Header from "../../layout/Header";
 const sortOptions = [
   "전체보기",
   "높은 조회순",
@@ -74,6 +75,7 @@ const RecommendVideos = () => {
 
   return (
     <div className="min-h-screen">
+      <Header />
       <main className="container mx-auto px-4 py-6 max-w-7xl">
         <section>
           <h1 className="text-2xl font-bold mb-1">추천 영상</h1>
@@ -145,6 +147,7 @@ const RecommendVideos = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };
