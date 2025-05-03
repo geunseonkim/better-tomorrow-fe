@@ -30,10 +30,10 @@ const Subtitles = ({ currentTime, setCurrentTime, player, videoId }) => {
           setCurrentSubIdx(i);
           if (isUserScrolling) return;
 
-          const parentElement = captionRefs?.current?.[i].parentElement; // 부모
+          const parentElement = captionRefs?.current?.[i]?.parentElement; // 부모
           const captionElement = captionRefs?.current?.[i]; // 자막
 
-          const offset = captionElement.offsetTop - parentElement.offsetTop;
+          const offset = captionElement?.offsetTop - parentElement?.offsetTop;
 
           if (offset > 180) {
             parentElement.scrollTo({
@@ -74,7 +74,9 @@ const Subtitles = ({ currentTime, setCurrentTime, player, videoId }) => {
   }, []);
 
   useEffect(() => {
-    if (isError) return;
+    if (isError || !englishCaption) {
+      return;
+    }
     getSubByTime();
   }, [currentTime]);
 
