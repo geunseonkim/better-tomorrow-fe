@@ -2,7 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { useCaptionDataQuery } from "../../../hooks/useCaption";
 import { IoIosPlayCircle } from "react-icons/io";
 
-const Subtitles = ({ currentTime, setCurrentTime, player, videoId }) => {
+const Subtitles = ({
+  currentTime,
+  setCurrentTime,
+  player,
+  videoId,
+  setSearchWord,
+}) => {
   const { englishCaption, koreanCaption, isLoading, isError, error } =
     useCaptionDataQuery(videoId);
   const [currentSubIdx, setCurrentSubIdx] = useState("");
@@ -119,7 +125,11 @@ const Subtitles = ({ currentTime, setCurrentTime, player, videoId }) => {
                     <div>
                       {caption?.["text"].split(/(\s+)/).map((word, wordIdx) => (
                         <>
-                          <span key={wordIdx} className="hover:bg-yellow-200">
+                          <span
+                            key={wordIdx}
+                            className="hover:bg-yellow-200"
+                            onClick={() => setSearchWord(word)}
+                          >
                             {word}
                           </span>{" "}
                         </>

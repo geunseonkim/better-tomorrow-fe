@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Video from "./components/Video";
 import Subtitles from "./components/Subtitles";
@@ -10,6 +10,7 @@ const DetailPage = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [player, setPlayer] = useState(null);
   const { id } = useParams();
+  const [searchWord, setSearchWord] = useState("");
   const {
     data,
     isLoading: videoLoading,
@@ -17,6 +18,10 @@ const DetailPage = () => {
     error,
   } = useVideoDetailsQuery(id);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("you searched: ", searchWord);
+  }, [searchWord]);
 
   return (
     <>
@@ -66,6 +71,7 @@ const DetailPage = () => {
                 currentTime={currentTime}
                 setCurrentTime={setCurrentTime}
                 player={player}
+                setSearchWord={setSearchWord}
               />
             </div>
           </div>
