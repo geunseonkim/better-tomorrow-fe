@@ -15,7 +15,7 @@ export const useCheckSubtitleQuery = (videoId) => {
   return useQuery({
     queryKey: ["captions", videoId],
     queryFn: () => getCaptions(videoId),
-    select: (data) => data.length > 0,
+    select: (data) => data.length > 0, // // 자막이 하나라도 있으면 true 반환
     retry: 1,
     staleTime: 1000 * 60 * 60 * 24, // 1 day
     enabled: !!videoId,
