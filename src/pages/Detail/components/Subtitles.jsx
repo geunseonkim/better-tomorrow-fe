@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useCaptionDataQuery } from "../../../hooks/useCaption";
 import { IoIosPlayCircle } from "react-icons/io";
+import { useSanityCaptionQuery } from "../../../hooks/useSanityCaption";
+import { sanity } from "../../../lib/sanityClient";
 
 const Subtitles = ({
   currentTime,
@@ -9,8 +11,76 @@ const Subtitles = ({
   videoId,
   setSearchWord,
 }) => {
-  const { englishCaption, koreanCaption, isLoading, isError, error } =
-    useCaptionDataQuery(videoId);
+  const {
+    sanityEnglish,
+    sanityKorean,
+    sanityLoading,
+    sanityIsError,
+    sanityNotFound,
+  } = useSanityCaptionQuery(videoId);
+
+  const [hasFetchedFallback, setHasFetchedFallback] = useState(false);
+
+  const shouldFetchFallback =
+    !sanityLoading && sanityNotFound === true && !hasFetchedFallback;
+
+  const { englishCaptionAPI, koreanCaptionAPI, isLoading, isError } =
+    useCaptionDataQuery(videoId, {
+      enabled: shouldFetchFallback,
+    });
+
+  useEffect(() => {
+    const fetched =
+      (englishCaptionAPI && englishCaptionAPI.length > 0) || isError;
+    if (shouldFetchFallback && !isLoading && fetched) {
+      setHasFetchedFallback(true); // 성공/실패 관계없이 무조건 한 번만 실행
+    }
+  }, [shouldFetchFallback, isLoading, englishCaptionAPI, isError]);
+
+  //   let englishCaption = [];
+  //   let koreanCaption = [];
+
+  //   if (englishCaptionAPI?.length > 0 && koreanCaptionAPI?.length > 0) {
+  //     englishCaption = englishCaptionAPI;
+  //     koreanCaption = koreanCaptionAPI;
+  //   } else if (sanityEnglish && sanityKorean) {
+  //     englishCaption = sanityEnglish;
+  //     koreanCaption = sanityKorean;
+  //   }
+
+  const [englishCaption, setEnglishCaption] = useState([]);
+  const [koreanCaption, setKoreanCaption] = useState([]);
+
+  useEffect(() => {
+    if (sanityEnglish && sanityKorean) {
+      setEnglishCaption(sanityEnglish);
+      setKoreanCaption(sanityKorean);
+    } else if (englishCaptionAPI?.length > 0 && koreanCaptionAPI?.length > 0) {
+      setEnglishCaption(englishCaptionAPI);
+      setKoreanCaption(koreanCaptionAPI);
+    }
+  }, [sanityEnglish, sanityKorean, englishCaptionAPI, koreanCaptionAPI]);
+
+  console.log(
+    "englishCaption",
+    englishCaption,
+    koreanCaption,
+    sanityNotFound,
+    sanityEnglish,
+    sanityKorean
+  );
+
+  const finalLoading =
+    sanityLoading ||
+    (sanityNotFound === true && isLoading) ||
+    (shouldFetchFallback && !sanityEnglish && !englishCaptionAPI);
+
+  const finalError =
+    (!sanityLoading && sanityIsError) || // sanity 자체 실패
+    (!sanityLoading && sanityNotFound === true && isError) ||
+    (!finalLoading && !englishCaption) || // sanity 없음 + API 실패
+    (!finalLoading && englishCaption.length === 0);
+
   const [currentSubIdx, setCurrentSubIdx] = useState("");
   const captionRefs = useRef([]);
   const containerRef = useRef(null);
@@ -59,7 +129,7 @@ const Subtitles = ({
   };
 
   useEffect(() => {
-    if (isError) return;
+    if (finalError) return;
     const container = containerRef.current;
     if (!container) return;
 
@@ -77,14 +147,14 @@ const Subtitles = ({
       container.removeEventListener("scroll", handleScroll);
       clearTimeout(scrollTimeoutRef.current);
     };
-  }, []);
+  }, [finalError]);
 
   useEffect(() => {
-    if (isError || !englishCaption) {
+    if (finalError) {
       return;
     }
     getSubByTime();
-  }, [currentTime]);
+  }, [currentTime, finalError]);
 
   return (
     <div className="p-4">
@@ -92,12 +162,12 @@ const Subtitles = ({
         ref={containerRef}
         className="space-y-1 lg:max-h-[600px] lg:min-h-[500px] min-h-[250px] max-h-[350px] overflow-y-auto sm:px-2"
       >
-        {isLoading && (
+        {finalLoading && (
           <div className="h-full flex items-center justify-center mt-10 ">
             <span className="loading loading-spinner text-primary"></span>
           </div>
         )}
-        {isError ? (
+        {finalError ? (
           <div className="h-[250px] lg:h-[600px] flex items-center justify-center bg-black/10">
             <div className="rounded-lg bg-white p-3">
               자막이 존재하지 않는 영상입니다.
@@ -135,7 +205,7 @@ const Subtitles = ({
                         </>
                       ))}
                     </div>
-                    <div className="">{koreanCaption[index]["text"]}</div>
+                    <div className="">{koreanCaption?.[index]?.["text"]}</div>
                   </div>
                 </div>
               ))}

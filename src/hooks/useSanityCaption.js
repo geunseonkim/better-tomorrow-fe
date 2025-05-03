@@ -1,5 +1,6 @@
 import { useQuery, useQueries } from "@tanstack/react-query";
 import { sanity } from "../lib/sanityClient.js";
+import { cache } from "react";
 
 const languages = ["en", "ko"];
 
