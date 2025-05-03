@@ -25,13 +25,17 @@ const Search = () => {
     }
   }, [isLoading, hasSubtitle, videoId, navigate]);
 
+  // 유튜브 URL에서 비디오 ID 추출
+  // 정규식을 통해 유튜브 url 형식인지 확인 (dataFormatUtils)
+  // video ID가 추출되면 → 유효한 YouTube URL이라고 간주
   const handleSubmit = (e) => {
     e.preventDefault();
-    const extractedId = extractVideoId(url); // 유튜브 URL에서 비디오 ID 추출
+    const extractedId = extractVideoId(url);
 
     if (extractedId) {
       setShowError(false);
-      setVideoId(extractedId);
+      setVideoId("");
+      setTimeout(() => setVideoId(extractedId), 0);
     } else {
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
