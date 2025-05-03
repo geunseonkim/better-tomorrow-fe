@@ -13,8 +13,8 @@ import {
 
 const sortOptions = [
   "전체보기",
-  "높은 조회순",
-  "낮은 조회순",
+  "조회 높은순",
+  "조회 낮은순",
   "좋아요 많은순",
   "좋아요 적은순",
   "최신순",
@@ -35,19 +35,19 @@ const RecommendVideos = () => {
 
   const sorted = useMemo(() => {
     switch (selectedSort) {
-      case "조회 높은 순":
+      case "조회 높은순":
         return [...details].sort(
           (a, b) => Number(b.viewCount) - Number(a.viewCount)
         );
-      case "조회 낮은 순":
+      case "조회 낮은순":
         return [...details].sort(
           (a, b) => Number(a.viewCount) - Number(b.viewCount)
         );
-      case "좋아요 많은 순":
+      case "좋아요 많은순":
         return [...details].sort(
           (a, b) => Number(b.likeCount) - Number(a.likeCount)
         );
-      case "좋아요 적은 순":
+      case "좋아요 적은순":
         return [...details].sort(
           (a, b) => Number(a.likeCount) - Number(b.likeCount)
         );
