@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -11,6 +11,7 @@ import { videoDataToString } from "../utils/dataFormatUtils";
 
 const Carousel = ({
   playlistId = "PLoSWVnSA9vG8SK6-_45PAu6RVTaP1zXHf",
+  handleFirstVideoId,
   breakpoints = {
     0: { slidesPerView: 1, slidesPerGroup: 1 },
     640: { slidesPerView: 2, slidesPerGroup: 2 },
@@ -24,6 +25,12 @@ const Carousel = ({
   const { data: playlistData } = usePlaylistVideosQuery(playlistId);
   const idsParam = videoDataToString(playlistData);
   const { data: videos } = useVideoDetailsQuery(idsParam);
+
+  useEffect(() => {
+    if (videos && videos.length > 0) {
+      handleFirstVideoId(videos[0].videoId);
+    }
+  }, [videos, handleFirstVideoId]);
 
   return (
     <div className="w-full py-5 flex justify-center">
@@ -42,8 +49,6 @@ const Carousel = ({
             swiper.navigation.init();
             swiper.navigation.update();
           }}
-          // slidesPerView={4}
-          // slidesPerGroup={2}
           breakpoints={breakpoints}
           spaceBetween={40}
           className="h-full"
