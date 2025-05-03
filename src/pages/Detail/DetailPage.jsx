@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
 const DetailPage = () => {
+  const { id } = useParams();
+
   return (
     <div className="min-h-screen py-6 px-4">
       <div className="flex flex-col lg:flex-row gap-6">
@@ -10,7 +13,8 @@ const DetailPage = () => {
           <div className="rounded-md overflow-hidden bg-black aspect-video relative">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+              // src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+              src={`https://www.youtube.com/embed/${id}`}
               title="YouTube video player"
               allowFullScreen
             ></iframe>
