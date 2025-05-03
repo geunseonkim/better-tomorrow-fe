@@ -34,7 +34,8 @@ const Search = () => {
 
     if (extractedId) {
       setShowError(false);
-      setVideoId(extractedId);
+      setVideoId("");
+      setTimeout(() => setVideoId(extractedId), 0);
     } else {
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
