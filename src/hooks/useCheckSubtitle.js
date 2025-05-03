@@ -13,7 +13,7 @@ const getCaptions = async (videoId) => {
 
 export const useCheckSubtitleQuery = (videoId) => {
   return useQuery({
-    queryKey: ["captions", videoId],
+    queryKey: ["isCaptions", videoId],
     queryFn: () => getCaptions(videoId),
     select: (data) => data.length > 0, // // 자막이 하나라도 있으면 true 반환
     retry: 1,

@@ -36,6 +36,7 @@ export const useVideoDetailsQuery = (videoIds) => {
     retry: 1,
     enabled: !!videoIds && videoIds.length > 0,
     staleTime: 1000 * 60 * 60 * 24, // 1 day
+    gcTime: 1000 * 60 * 60 * 24,
     select: (data) => selectData(data),
   });
 };
