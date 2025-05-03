@@ -22,7 +22,6 @@ const Search = () => {
       } else if (hasSubtitle === true) {
         navigate(`/detail/${videoId}`);
       }
-      console.log("hasSubtitle", hasSubtitle);
     }
   }, [isLoading, hasSubtitle, videoId, navigate]);
 
@@ -40,7 +39,7 @@ const Search = () => {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto mt-6">
+    <div className="w-full max-w-md mx-auto mt-6">
       <form onSubmit={handleSubmit} className="flex gap-2">
         <div className="relative flex-1">
           <input
@@ -63,24 +62,23 @@ const Search = () => {
       </form>
 
       {showError && (
-        <div
-          role="alert"
-          className="absolute top-4 left-1/2 transform -translate-x-1/2 w-full max-w-xl z-50 alert alert-info bg-blue-100 text-blue-900 p-4 rounded shadow "
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="h-6 w-6 shrink-0 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span className="text-sm">유효한 유튜브 URL을 입력해주세요.</span>
+        <div className="toast toast-center z-50">
+          <div className="alert alert-error shadow-lg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 9v2m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"
+              />
+            </svg>
+            <span>유효한 YouTube URL을 입력해주세요.</span>
+          </div>
         </div>
       )}
 

@@ -61,20 +61,20 @@ const MainPage = () => {
               <div className="inline-block rounded-xl bg-black px-3 py-1 text-sm text-white">
                 주요 기능
               </div>
-              <h2 className="text-3xl font-bold  md:text-4xl">
+              <h2 className="text-2xl font-bold md:text-4xl">
                 영상을 더 효과적으로 활용해보세요.
               </h2>
-              <p className="mt-4 max-w-[900px] md:text-xl text-gray-500">
+              <p className="mt-4 max-w-[900px] text-md md:text-xl text-gray-500">
                 SubTube는 YouTube 영상의 자막을 쉽게 확인하고 활용할 수 있는
                 다양한 기능을 제공합니다.
               </p>
             </div>
           </div>
-          <div className="mx-auto grid max-w-2xl items-center gap-6 py-12 lg:grid-cols-2">
+          <div className="mx-auto max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-6 py-12 px-4">
             {features.map((item, idx) => (
               <div
                 key={item.step}
-                className={`w-xs min-h-[180px] rounded-xl p-8 shadow-md ${
+                className={`min-h-[180px] rounded-xl p-8 shadow-md ${
                   idx % 2 === 0 ? "bg-gray-800" : "bg-[#6e4aef]"
                 }`}
               >
@@ -97,7 +97,7 @@ const MainPage = () => {
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold md:text-4xl">사용 방법</h2>
-              <p className="max-w-[900px] text-gray-600 text-xl p-2">
+              <p className="max-w-[900px] text-gray-600 text-md md:text-xl p-2">
                 SubTube는 간단한 3단계로 YouTube 영상의 자막을 확인할 수
                 있습니다.
               </p>
