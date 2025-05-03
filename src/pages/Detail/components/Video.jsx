@@ -99,7 +99,7 @@ const Video = ({
             {data[0]?.description}
           </p>
           <button
-            className="text-sm text-gray-500"
+            className="text-sm text-gray-500 cursor-pointer"
             onClick={() => setExtended(!extended)}
           >
             {extended ? "접기" : "더보기"}

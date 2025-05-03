@@ -1,15 +1,21 @@
 import React, { useRef } from "react";
 import Carousel from "../../common/Carousel";
+import { useNavigate } from "react-router-dom";
 
 const MultiCarousel = ({ onMainVideoIdReady }) => {
   const mrbeastId = "PLoSWVnSA9vG_s-XT40oPKF0iWFGw8pOp2";
   const kurzgesagtId = "PLFs4vir_WsTyRF0gggqGopQvUZR-oK_c6";
   const tedTalksId = "PLOGi5-fAu8bEGRNnASSKTvGdKx7FCURQu";
 
+  const navigate = useNavigate();
+  const navigateToRecommend = () => {
+    navigate("/recommend");
+  };
+
   const playlists = [
-    { title: "미스터 비스트의 인기 영상을 확인해보세요!", id: mrbeastId },
-    { title: "유용한 과학 채널 Kurzgesagt – In a Nutshell", id: kurzgesagtId },
-    { title: "TED Talks 유명한 강연과 학습해보세요.", id: tedTalksId },
+    { title: "MrBeast 인기 영상", id: mrbeastId },
+    { title: "Kurzgesagt 과학 콘텐츠", id: kurzgesagtId },
+    { title: "TED Talks 명강연", id: tedTalksId },
   ];
 
   const handled = useRef(false);
@@ -22,15 +28,27 @@ const MultiCarousel = ({ onMainVideoIdReady }) => {
   };
 
   return (
-    <div className="space-y-10 p-5">
-      {playlists.map(({ title, id }) => (
-        <section key={id}>
-          <div className="max-w-[1400px] mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-2">{title}</h2>
-            <Carousel playlistId={id} handleFirstVideoId={handleFirstVideoId} />
+    <div className="p-5">
+      <div>
+        {playlists.map(({ title, id }) => (
+          <div>
+            <section key={id}>
+              <div className="max-w-[1400px] mx-auto">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl sm:text-3xl font-bold pl-8">{title}</h2>
+                  <div
+                    className="cursor-pointer underline"
+                    onClick={navigateToRecommend}
+                  >
+                    영상 더보기
+                  </div>
+                </div>
+                <Carousel playlistId={id} handleFirstVideoId={handleFirstVideoId} />
+              </div>
+            </section>
           </div>
-        </section>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

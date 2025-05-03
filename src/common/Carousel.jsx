@@ -32,8 +32,15 @@ const Carousel = ({
     }
   }, [videos, handleFirstVideoId]);
 
+  useEffect(() => {
+    if (videos && videos.length > 0) {
+      const ids = videos.map((v) => v.videoId);
+      console.log("Carousel Video IDs:", ids);
+    }
+  }, [videos]);
+
   return (
-    <div className="w-full py-5 flex justify-center">
+    <div className="w-full flex justify-center pb-15">
       <div className="relative w-full max-w-[1400px] px-4 mx-auto">
         <Swiper
           modules={[Navigation]}

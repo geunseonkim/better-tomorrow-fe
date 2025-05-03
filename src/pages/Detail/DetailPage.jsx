@@ -5,6 +5,7 @@ import Subtitles from "./components/Subtitles";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { useVideoDetailsQuery } from "../../hooks/useVideoDetails";
 import { useNavigate } from "react-router";
+import MultiCarousel from "../MultiCarousel/MultiCarousel";
 
 const DetailPage = () => {
   const [currentTime, setCurrentTime] = useState(0);
@@ -17,6 +18,10 @@ const DetailPage = () => {
   useEffect(() => {
     console.log("you searched: ", searchWord);
   }, [searchWord]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
   return (
     <>
@@ -80,6 +85,7 @@ const DetailPage = () => {
                 </p>
               </div>
             </div>
+            <MultiCarousel />
           </div>
         </div>
       )}
