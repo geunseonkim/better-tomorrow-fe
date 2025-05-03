@@ -31,15 +31,18 @@ const Banner = () => {
         <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl max-w-3xl mb-5">
           Youtube 영상의 자막으로 쉽게 공부해보세요.
         </h1>
-        <p className="max-w-[800px] text-sm md:text-xl sm:text-lg text-white/80 mb-8">
+        <p className="max-w-2xl text-sm sm:text-base md:text-lg text-white/80 mb-8 leading-relaxed text-pretty">
           Subtube는 YouTube 영상의 자막을 쉽게 확인하고, 번역할 수 있는
-          서비스입니다.
-          <br />
+          서비스입니다. <br />
           실제 상황 속 자연스러운 언어로 청취력을 향상시켜보세요.
         </p>
 
         {/* url 입력 폼 */}
         <Search />
+        <p className="text-xs md:text-sm text-white/70 mt-4 break-words text-pretty text-center max-w-sm">
+          <span className="font-bold">Tip : </span>
+          YouTube에서 자막(CC) 버튼이 활성화된 영상을 찾아보세요.
+        </p>
       </div>
     </section>
   );
