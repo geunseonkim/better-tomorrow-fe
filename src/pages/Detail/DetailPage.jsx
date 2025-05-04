@@ -94,11 +94,7 @@ const DetailPage = () => {
 
       {/* 사전 검색 모달창 */}
       {searchWord && (
-        <WordTabModal
-          searchWord={searchWord}
-          isOpen={searchWord !== ""}
-          onClose={() => setSearchWord("")}
-        />
+        <WordTabModal searchWord={searchWord} setSearchWord={setSearchWord} />
       )}
     </>
   );
