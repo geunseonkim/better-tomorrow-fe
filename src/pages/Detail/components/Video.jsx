@@ -40,7 +40,7 @@ const Video = ({
 
   return (
     <div className="lg:w-8/12">
-      <div className="sticky top-16 z-10 lg:static">
+      <div className="sticky top-16 lg:static">
         <div className="rounded-md overflow-hidden bg-black aspect-video relative">
           <YouTube
             videoId={videoId}
