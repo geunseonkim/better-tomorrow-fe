@@ -73,7 +73,7 @@ const RecommendVideos = () => {
   //   );
   // }
 
-  const [selectedSort, setSelectedSort] = useState("전체");
+  const [selectedSort, setSelectedSort] = useState("전체보기");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
