@@ -24,6 +24,7 @@ export const usePlaylistVideosQuery = (playlistId) => {
     queryFn: () => getVideosByPlaylist(playlistId),
     retry: 1,
     staleTime: 1000 * 60 * 60 * 24, // 1 day
+    gcTime: 1000 * 60 * 60 * 24,
     enabled: !!playlistId,
   });
 };

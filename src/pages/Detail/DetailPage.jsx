@@ -5,6 +5,7 @@ import Subtitles from "./components/Subtitles";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { useVideoDetailsQuery } from "../../hooks/useVideoDetails";
 import { useNavigate } from "react-router";
+import WordTabModal from "./components/WordTabModal";
 import MultiCarousel from "../MultiCarousel/MultiCarousel";
 
 const DetailPage = () => {
@@ -12,6 +13,7 @@ const DetailPage = () => {
   const [player, setPlayer] = useState(null);
   const { id } = useParams();
   const [searchWord, setSearchWord] = useState("");
+
   const { data, isLoading: videoLoading, isError, error } = useVideoDetailsQuery(id);
   const navigate = useNavigate();
 
@@ -75,6 +77,7 @@ const DetailPage = () => {
               />
             </div>
           </div>
+
           {/* 캐러셀 */}
           <div className="mt-10">
             <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
@@ -88,6 +91,15 @@ const DetailPage = () => {
             <MultiCarousel />
           </div>
         </div>
+      )}
+
+      {/* 사전 검색 모달창 */}
+      {searchWord && (
+        <WordTabModal
+          searchWord={searchWord}
+          isOpen={searchWord !== ""}
+          onClose={() => setSearchWord("")}
+        />
       )}
     </>
   );
