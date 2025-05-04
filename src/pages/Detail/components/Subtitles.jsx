@@ -61,14 +61,14 @@ const Subtitles = ({
     }
   }, [sanityEnglish, sanityKorean, englishCaptionAPI, koreanCaptionAPI]);
 
-  console.log(
-    "englishCaption",
-    englishCaption,
-    koreanCaption,
-    sanityNotFound,
-    sanityEnglish,
-    sanityKorean
-  );
+  // console.log(
+  //   "englishCaption",
+  //   englishCaption,
+  //   koreanCaption,
+  //   sanityNotFound,
+  //   sanityEnglish,
+  //   sanityKorean
+  // );
 
   const finalLoading =
     sanityLoading ||
