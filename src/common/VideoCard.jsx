@@ -24,11 +24,11 @@ const VideoCard = ({ video }) => {
               {video?.duration}
             </div>
           </div>
-          <div className="px-2 flex flex-col justify-between flex-1 overflow-hidden">
+          <div className="px-2 flex flex-col justify-between flex-1 overflow-hidden pl-3">
             <div className="pt-2 text-sm sm:text-base"> {video?.title}</div>
             <div className="text-neutral-500">
-              <div className="text-sm">{video?.channelTitle}</div>
-              <div className="flex pb-1 text-sm">
+              <div className="text-sm ">{video?.channelTitle}</div>
+              <div className="flex pb-3  text-sm">
                 <div>{formatCount(Number(video.viewCount))} views</div>
                 <span className="mx-1 text-neutral-500">·</span>
                 <div>{formatTimeAgo(video.publishedAt)}</div>
