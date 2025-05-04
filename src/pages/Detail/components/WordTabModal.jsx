@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useWordDetails } from "../../../hooks/useWordDetails";
 import { FaVolumeUp } from "react-icons/fa";
 
@@ -6,15 +6,15 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
   const proxyUrl = "http://15.223.105.115";
 
   const [tab, setTab] = useState("def");
+  const dialogRef = useRef(null);
+
   const { translation, definition, synonymsAntonyms } = useWordDetails(
     searchWord || "coffee",
     to || "ko",
     proxyUrl,
     true
-    // enabled: isModalOpen,  // 모달 열리면 데이터를 가져옴
   );
 
-  //trans
   const {
     searchWord: transText,
     isPending,
@@ -22,7 +22,6 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
     error: transError,
   } = translation;
 
-  //def
   const {
     data: defData,
     isLoading: isDefLoading,
@@ -30,7 +29,6 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
     error: DefError,
   } = definition;
 
-  //synAnt
   const {
     synonyms,
     antonyms,
@@ -39,21 +37,19 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
     error: SynAntError,
   } = synonymsAntonyms;
 
-  //loading, error
   if (isPending || isDefLoading || isSynAntLoading) return <p>로딩중</p>;
   if (isTransError || isDefError || isSynAntError)
     return (
       <p>
-        "error": {transError.message || DefError.message || SynAntError.message}
+        "error":{" "}
+        {transError?.message || DefError?.message || SynAntError?.message}
       </p>
     );
 
-  //no data
   if (!transText && !defData) {
     return <p>이 단어의 데이터가 존재하지 않습니다.</p>;
   }
 
-  //audio
   const usAudio = defData?.phonetics?.[1]?.audio;
   const gbAudio = defData?.phonetics?.[0]?.audio;
   const playAudio = (url) => {
@@ -61,19 +57,26 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
     audio.play();
   };
 
-  // console.log("transText", transText);
-  console.log("defData", defData);
-  console.log("synonyms", synonyms, "antonyms", antonyms);
-
   if (!isOpen) return null;
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (isOpen) {
+      dialog.showModal();
+    } else {
+      dialog.close();
+    }
+  }, [isOpen]);
 
   return (
     <>
-      {/* 모달창 */}
       {searchWord && (
-        <div className="modal fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+        <dialog
+          ref={dialogRef}
+          className="modal fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
+        >
           <div className="modal-box w-full sm:w-[500px] md:w-[600px] lg:w-[700px] h-[300px] overflow-y-auto">
-            {/* 단어 + 뜻 */}
             <div>
               <div>
                 <h2 className="text-3xl font-bold">{searchWord || "coffee"}</h2>
@@ -94,7 +97,6 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
               </div>
               <hr className="my-3 border-t border-gray-300" />
             </div>
-            {/* 오디오 */}
             <div className="my-3 flex space-x-2">
               {defData?.phonetics?.map((phonetic, i) => {
                 if (phonetic.audio) {
@@ -129,7 +131,6 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
                 return null;
               })}
             </div>
-            {/* 탭 카테고리 */}
             <div role="tablist" className="tabs tabs-border mb-5">
               <a
                 role="tab"
@@ -153,7 +154,6 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
                 유의어/반의어
               </a>
             </div>
-            {/* 탭 내용 */}
             <div>
               {tab === "def" && (
                 <div className="space-y-4">
@@ -185,7 +185,6 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
                         {meaning.definitions
                           .filter((def) => def.example)
                           .map((def, inx) => (
-                            // <li key={inx} className="text-sm text-gray-700">
                             <li key={inx} className="text-sm">
                               {def.example}
                             </li>
@@ -216,14 +215,13 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
                 </div>
               )}
             </div>
-            {/* 모달창 닫기 */}
             <div className="modal-action">
               <button onClick={onClose} className="btn">
                 닫기
               </button>
             </div>
           </div>
-        </div>
+        </dialog>
       )}
     </>
   );
