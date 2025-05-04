@@ -26,8 +26,8 @@ const MultiCarousel = ({ onMainVideoIdReady }) => {
     <div className="p-5">
       <div>
         {playlists.map(({ title, id }) => (
-          <div>
-            <section key={id}>
+          <div key={id}>
+            <section>
               <div className="max-w-[1400px] mx-auto">
                 <h2 className="text-2xl sm:text-3xl font-bold pl-8">{title}</h2>
                 <Carousel playlistId={id} handleFirstVideoId={handleFirstVideoId} />

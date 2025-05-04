@@ -55,7 +55,7 @@ const Carousel = ({
         <Swiper
           modules={[Navigation]}
           loop={true}
-          loopFillGroupWithBlank={true}
+          fillgroupwithblank="true"
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
