@@ -30,8 +30,7 @@ const Subtitles = ({
     });
 
   useEffect(() => {
-    const fetched =
-      (englishCaptionAPI && englishCaptionAPI.length > 0) || isError;
+    const fetched = (englishCaptionAPI && englishCaptionAPI.length > 0) || isError;
     if (shouldFetchFallback && !isLoading && fetched) {
       setHasFetchedFallback(true); // 성공/실패 관계없이 무조건 한 번만 실행
     }
@@ -93,10 +92,7 @@ const Subtitles = ({
     for (let i = 0; i < englishCaption.length - 1; i++) {
       const nextCaption = englishCaption[i + 1];
 
-      if (
-        i === englishCaption.length - 2 &&
-        nextCaption["start"] < currentTime
-      ) {
+      if (i === englishCaption.length - 2 && nextCaption["start"] < currentTime) {
         setCurrentSubIdx(i + 1);
         return;
       }

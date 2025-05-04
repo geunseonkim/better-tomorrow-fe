@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useMockVideosQuery } from "../../hooks/useMockVideos";
 import { useVideoDetailsQuery } from "../../hooks/useVideoDetails";
 import { videoDataToString } from "../../utils/dataFormatUtils";
+import { useNavigate } from "react-router-dom";
 import VideoCard from "../../common/VideoCard";
 import FilterBar from "./FilterBar";
 import {
@@ -22,11 +23,57 @@ const sortOptions = [
 ];
 
 const RecommendVideos = () => {
-  const { data: mockVideos = [] } = useMockVideosQuery();
-  const idsParam = videoDataToString(mockVideos);
-  const { data: details = [] } = useVideoDetailsQuery(idsParam);
+  const navigate = useNavigate();
 
-  const [selectedSort, setSelectedSort] = useState("전체");
+  const {
+    data: mockVideos = [],
+    isLoading: isMockLoading,
+    isError: isMockError,
+    error: mockError,
+  } = useMockVideosQuery();
+  const idsParam = videoDataToString(mockVideos);
+  const {
+    data: details = [],
+    isLoading: isDetailsLoading,
+    isError: isDetailsError,
+    error: detailsError,
+  } = useVideoDetailsQuery(idsParam);
+
+  // 로딩중, 로딩스피너
+  // if (isMockLoading || isDetailsLoading) {
+  //   return (
+  //     <div className="flex items-center justify-center min-h-screen">
+  //       <span className="loading loading-spinner text-primary"></span>
+  //     </div>
+  //   );
+  // }
+
+  //에러핸들링
+  // if (isMockError || isDetailsError) {
+  //   const message =
+  //     mockError?.message ||
+  //     detailsError?.message ||
+  //     "예기치 못한 오류가 발생했습니다";
+  //   return (
+  //     <div className="flex flex-col items-center justify-center min-h-screen">
+  //       <img
+  //         src="https://www.youtube.com/img/desktop/unavailable/unavailable_video.png"
+  //         alt="error"
+  //         className="w-1/4 h-1/4"
+  //       />
+  //       <div className="text-lg mb-4">존재하지 않는 비디오입니다</div>
+  //       <div className="text-sm text-gray-600 mb-6">{message}</div>
+  //       <button
+  //         className="btn btn-soft btn-primary rounded-lg"
+  //         onClick={() => navigate("/")}
+  //       >
+  //         홈으로 가기
+  //       </button>
+  //     </div>
+  //   );
+  // }
+
+  const [selectedSort, setSelectedSort] = useState("전체보기");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

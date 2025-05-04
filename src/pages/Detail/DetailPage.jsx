@@ -6,6 +6,7 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { useVideoDetailsQuery } from "../../hooks/useVideoDetails";
 import { useNavigate } from "react-router";
 import WordTabModal from "./components/WordTabModal";
+import MultiCarousel from "../MultiCarousel/MultiCarousel";
 
 const DetailPage = () => {
   const [currentTime, setCurrentTime] = useState(0);
@@ -13,17 +14,16 @@ const DetailPage = () => {
   const { id } = useParams();
   const [searchWord, setSearchWord] = useState("");
 
-  const {
-    data,
-    isLoading: videoLoading,
-    isError,
-    error,
-  } = useVideoDetailsQuery(id);
+  const { data, isLoading: videoLoading, isError, error } = useVideoDetailsQuery(id);
   const navigate = useNavigate();
 
   useEffect(() => {
     console.log("you searched: ", searchWord);
   }, [searchWord]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
   return (
     <>
@@ -88,6 +88,7 @@ const DetailPage = () => {
                 </p>
               </div>
             </div>
+            <MultiCarousel />
           </div>
         </div>
       )}
