@@ -3,10 +3,10 @@ import localApi from "../utils/localApi";
 import axios from "axios";
 
 //trans
-// const fetchTranslation = async ({ text, to }) => {
-//   const res = await localApi.post("/translate", { text, to });
-//   return res.data;
-// };
+const fetchTranslation = async ({ text, to }) => {
+  const res = await localApi.post("/translate", { text, to });
+  return res.data;
+};
 // const fetchTranslation = async ({ text, to, proxy }) => {
 //   const res = await localApi.post("/translate-proxy", { text, to, proxy });
 //   return res.data;
@@ -37,15 +37,15 @@ const fetchSynAnt = async (text) => {
 };
 
 // export const useWordDetails = (text, to, proxy, enabled = "true") => {
-export const useWordDetails = (text, enabled = "true") => {
-  //Trans
-  //   const useTranslationQuery = useQuery({
-  //     queryKey: ["translation", text, to],
-  //     queryFn: () => fetchTranslation({ text, to }),
-  //     enabled: !!(enabled && text && to),
-  //     staleTime: 1000 * 60 * 60,
-  //     refetchOnWindowFocus: false,
-  //   });
+export const useWordDetails = (text, to, enabled = "true") => {
+  // Trans;
+  const useTranslationQuery = useQuery({
+    queryKey: ["translation", text, to],
+    queryFn: () => fetchTranslation({ text, to }),
+    enabled: !!(enabled && text && to),
+    staleTime: 1000 * 60 * 60,
+    refetchOnWindowFocus: false,
+  });
   // const useTranslationQuery = useQuery({
   //   queryKey: ["/translate-proxy", text, to, proxy], // proxy 값을 쿼리 키에 추가
   //   queryFn: () => fetchTranslation({ text, to, proxy }), // proxy 값을 전달
@@ -73,12 +73,12 @@ export const useWordDetails = (text, enabled = "true") => {
   });
 
   return {
-    // translation: {
-    //   text: useTranslationQuery.data,
-    //   isPending: useTranslationQuery.isPending,
-    //   isError: useTranslationQuery.isError,
-    //   error: useTranslationQuery.error,
-    // },
+    translation: {
+      text: useTranslationQuery.data,
+      isPending: useTranslationQuery.isPending,
+      isError: useTranslationQuery.isError,
+      error: useTranslationQuery.error,
+    },
     definition: {
       data: useDefinitionQuery.data,
       isLoading: useDefinitionQuery.isFetching,
