@@ -67,19 +67,21 @@ const WordTabModal = ({ searchWord, setSearchWord }) => {
 
       <div className="modal" onClick={() => setSearchWord("")}>
         <div
-          className="modal-box w-full sm:w-[500px] md:w-[600px] lg:w-[700px] h-[300px] overflow-y-auto"
+          className="modal-box px-8 w-full sm:w-[500px] md:w-[600px] lg:w-[700px] h-[400px] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           <h2 className="text-3xl font-bold">
             {searchWord.replace(/[.,!?]$/, "") || "coffee"}
           </h2>
-          <p className="text-md my-1 mb-3">1. {transText?.translatedText}</p>
-          <div className="text-xs text-gray-300 mb-3">
-            Pronunciation:&nbsp;
+          <p className="text-md my-2 mb-3">
+            1. {transText?.translatedText.replace(/[.,!?]$/, "")}
+          </p>
+          <div className="text-xs text-gray-500 mb-3">
+            Pronunciation:&nbsp; UK{" "}
             <span style={{ fontSize: "0.7rem" }}>
               [{defData?.phonetics?.[1]?.text || "N/A"}]
             </span>
-            &nbsp;
+            &nbsp; US{" "}
             <span style={{ fontSize: "0.7rem" }}>
               [{defData?.phonetics?.[0]?.text || "N/A"}]
             </span>
@@ -131,10 +133,10 @@ const WordTabModal = ({ searchWord, setSearchWord }) => {
             <div className="space-y-4">
               {defData.meanings.map((meaning, idx) => (
                 <div key={idx}>
-                  <h3 className="font-bold text-lg text-blue-700">
+                  <h3 className="font-bold text-xl text-blue-700 mb-3">
                     {meaning.partOfSpeech}
                   </h3>
-                  <ul className="list-decimal ml-5 space-y-2">
+                  <ul className="list-decimal ml-5 space-y-3">
                     {meaning.definitions.map((def, i) => (
                       <li key={i} className="text-sm">
                         {def.definition}
@@ -145,45 +147,56 @@ const WordTabModal = ({ searchWord, setSearchWord }) => {
               ))}
             </div>
           )}
+
           {tab === "exp" && (
             <div className="space-y-4">
-              {defData.meanings.map((meaning, idx) => (
-                <div key={idx}>
-                  <h3 className="font-bold text-lg text-blue-700">
-                    {meaning.partOfSpeech}
-                  </h3>
-                  <ul className="list-decimal ml-5 space-y-2">
-                    {meaning.definitions
-                      .filter((def) => def.example)
-                      .map((def, i) => (
-                        <li key={i} className="text-sm">
-                          {def.example}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              ))}
+              {defData.meanings
+                .filter((meaning) =>
+                  meaning.definitions.some((def) => def.example)
+                )
+                .map((meaning, idx) => (
+                  <div key={idx}>
+                    <h3 className="font-bold text-xl text-blue-700 mb-3">
+                      {meaning.partOfSpeech}
+                    </h3>
+                    <ul className="list-decimal ml-5 space-y-3">
+                      {meaning.definitions
+                        .filter((def) => def.example)
+                        .map((def, i) => (
+                          <li key={i} className="text-sm">
+                            {def.example}
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+                ))}
             </div>
           )}
           {tab === "synAnt" && (
             <div className="space-y-4">
-              {defData.meanings.map((meaning, idx) => (
-                <div key={idx}>
-                  <h3 className="font-bold text-lg text-blue-700">
-                    {meaning.partOfSpeech}
-                  </h3>
-                  <div className="text-sm space-y-1 ml-3">
-                    {meaning.synonyms.length > 0 && (
-                      <p>유의어: {meaning.synonyms.join(", ")}</p>
-                    )}
-                    {meaning.antonyms.length > 0 && (
-                      <p>반의어: {meaning.antonyms.join(", ")}</p>
-                    )}
+              {defData.meanings
+                .filter(
+                  (meaning) =>
+                    meaning.synonyms.length > 0 || meaning.antonyms.length > 0
+                ) // 유의어나 반의어가 있을 경우만 필터링
+                .map((meaning, idx) => (
+                  <div key={idx}>
+                    <h3 className="font-bold text-xl text-blue-700 mb-3">
+                      {meaning.partOfSpeech}
+                    </h3>
+                    <div className="text-sm space-y-3 ml-3">
+                      {meaning.synonyms.length > 0 && (
+                        <p>유의어: {meaning.synonyms.join(", ")}</p>
+                      )}
+                      {meaning.antonyms.length > 0 && (
+                        <p>반의어: {meaning.antonyms.join(", ")}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           )}
+
           <div className="modal-action">
             <button onClick={() => setSearchWord("")} className="btn">
               닫기
