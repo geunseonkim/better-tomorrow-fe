@@ -14,9 +14,11 @@ const fetchTranslation = async ({ text, to, proxy }) => {
 
 //Def
 const fetchDefinition = async (text) => {
+  const cleanText = text.replace(/[.,!?]$/, "");
   const res = await axios.get(
-    `https://api.dictionaryapi.dev/api/v2/entries/en/${text}`
+    `https://api.dictionaryapi.dev/api/v2/entries/en/${cleanText}`
   );
+  // console.log("ttt", cleanText);
   return res.data[0];
 };
 
