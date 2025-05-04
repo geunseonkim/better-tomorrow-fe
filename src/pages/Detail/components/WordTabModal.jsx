@@ -2,25 +2,43 @@ import React, { useState, useEffect, useRef } from "react";
 import { useWordDetails } from "../../../hooks/useWordDetails";
 import { FaVolumeUp } from "react-icons/fa";
 
-const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
-  const proxyUrl = "http://15.223.105.115";
+// const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
+const WordTabModal = ({ searchWord, setSearchWord }) => {
+  // const proxyUrl = "http://15.223.105.115";
 
   const [tab, setTab] = useState("def");
   const dialogRef = useRef(null);
 
-  const { translation, definition, synonymsAntonyms } = useWordDetails(
+  // const { translation, definition, synonymsAntonyms } = useWordDetails(
+  //   searchWord || "coffee",
+  //   to || "ko",
+  //   proxyUrl,
+  //   true
+  // );
+
+  const { definition, synonymsAntonyms } = useWordDetails(
     searchWord || "coffee",
-    to || "ko",
-    proxyUrl,
     true
   );
 
-  const {
-    searchWord: transText,
-    isPending,
-    isError: isTransError,
-    error: transError,
-  } = translation;
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    console.log("ddd", dialog);
+    if (!dialog) return;
+
+    if (searchWord && searchWord !== "") {
+      dialog.showModal(); // 모달을 열 때
+    } else {
+      dialog.close(); // searchWord가 없을 때 모달을 닫기
+    }
+  }, [searchWord]);
+
+  // const {
+  //   searchWord: transText,
+  //   isPending,
+  //   isError: isTransError,
+  //   error: transError,
+  // } = translation;
 
   const {
     data: defData,
@@ -37,16 +55,11 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
     error: SynAntError,
   } = synonymsAntonyms;
 
-  if (isPending || isDefLoading || isSynAntLoading) return <p>로딩중</p>;
-  if (isTransError || isDefError || isSynAntError)
-    return (
-      <p>
-        "error":{" "}
-        {transError?.message || DefError?.message || SynAntError?.message}
-      </p>
-    );
+  if (isDefLoading || isSynAntLoading) return <p>로딩중</p>;
+  if (isDefError || isSynAntError)
+    return <p>"error": {DefError?.message || SynAntError?.message}</p>;
 
-  if (!transText && !defData) {
+  if (!defData) {
     return <p>이 단어의 데이터가 존재하지 않습니다.</p>;
   }
 
@@ -57,32 +70,20 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
     audio.play();
   };
 
-  if (!isOpen) return null;
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (isOpen) {
-      dialog.showModal();
-    } else {
-      dialog.close();
-    }
-  }, [isOpen]);
-
   return (
     <>
-      {searchWord && (
-        <dialog
-          ref={dialogRef}
-          className="modal fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
-        >
+      <dialog
+        ref={dialogRef}
+        className="modal fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
+      >
+        {searchWord && (
           <div className="modal-box w-full sm:w-[500px] md:w-[600px] lg:w-[700px] h-[300px] overflow-y-auto">
             <div>
               <div>
                 <h2 className="text-3xl font-bold">{searchWord || "coffee"}</h2>
-                <p className="text-md my-1 mb-3">
+                {/* <p className="text-md my-1 mb-3">
                   1. {transText?.translatedText}
-                </p>
+                </p> */}
                 <p className="text-xs text-gray-300 space-x-2">
                   <span>Pronunciation</span>
                   US{" "}
@@ -216,13 +217,18 @@ const WordTabModal = ({ searchWord, to, isOpen, onClose }) => {
               )}
             </div>
             <div className="modal-action">
-              <button onClick={onClose} className="btn">
+              <button
+                onClick={() => {
+                  setSearchWord("");
+                }}
+                className="btn"
+              >
                 닫기
               </button>
             </div>
           </div>
-        </dialog>
-      )}
+        )}
+      </dialog>
     </>
   );
 };

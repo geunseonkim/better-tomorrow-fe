@@ -78,7 +78,11 @@ const Header = ({ onStartClick }) => {
       {isMenuOpen && (
         <div className="sm:hidden absolute top-16 left-0 w-full bg-white boder-t border-gray-200 shadow-md z-40">
           <nav className="flex flex-col px-4 py-3 space-y-2">
-            <a href="#videos" className="text-sm font-medium">
+            <a
+              href="#videos"
+              className="text-sm font-medium"
+              onClick={navigateToRecommend}
+            >
               추천영상
             </a>
             <a href="#features" className="text-sm font-medium">
