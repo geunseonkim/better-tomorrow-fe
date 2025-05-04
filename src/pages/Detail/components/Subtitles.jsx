@@ -193,17 +193,17 @@ const Subtitles = ({
                   />
                   <div className="flex flex-col max-w-[90%] sm:text-base text-sm">
                     <div>
-                      {caption?.["text"].split(/(\s+)/).map((word, wordIdx) => (
-                        <>
+                      {(caption?.["text"] || "")
+                        .split(/(\s+)/)
+                        .map((word, wordIdx) => (
                           <span
                             key={wordIdx}
                             className="hover:bg-yellow-200 cursor-pointer"
                             onClick={() => setSearchWord(word)}
                           >
                             {word}
-                          </span>{" "}
-                        </>
-                      ))}
+                          </span>
+                        ))}
                     </div>
                     <div className="">{koreanCaption?.[index]?.["text"]}</div>
                   </div>
