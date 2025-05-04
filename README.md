@@ -1,37 +1,12 @@
-# better-tomorrow
+# React + Vite
 
-## Project Overview
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-TBD (To Be Determined)
+Currently, two official plugins are available:
 
----
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Project Details
+## Expanding the ESLint configuration
 
-- **Project name**:
-- **development period**: 2025.04.28 ~ 2025.05.04
-- **tech stack**: React, React Router, React Query, Axios
-- **Team Members**: See the table below
-
----
-
-## Team members
-
-| Role                   | Name   | Responsibilities |
-| ---------------------- | ------ | ---------------- |
-| **Product Owner**      | 조정민 | TBD              |
-| **Scrum Master**       | 김근선 | TBD              |
-| **Frontend Developer** | 조소현 | TBD              |
-| **Frontend Developer** | 권영경 | TBD              |
-
----
-
-## Features
-
-TBD
-
----
-
-## Folder Structure
-
-TBD
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
