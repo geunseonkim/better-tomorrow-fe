@@ -7,7 +7,7 @@ const getVideosByPlaylist = async (playlistId) => {
   const { data } = await api.get("/playlistItems", {
     params: {
       part: "contentDetails",
-      maxResults: 15,
+      maxResults: 20,
       playlistId,
       fields: "items(contentDetails(videoId))",
     },

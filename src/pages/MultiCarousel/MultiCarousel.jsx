@@ -1,21 +1,16 @@
 import React, { useRef } from "react";
 import Carousel from "../../common/Carousel";
-import { useNavigate } from "react-router-dom";
 
 const MultiCarousel = ({ onMainVideoIdReady }) => {
-  const mrbeastId = "PLoSWVnSA9vG_s-XT40oPKF0iWFGw8pOp2";
-  const kurzgesagtId = "PLFs4vir_WsTyRF0gggqGopQvUZR-oK_c6";
-  const tedTalksId = "PLOGi5-fAu8bEGRNnASSKTvGdKx7FCURQu";
-
-  const navigate = useNavigate();
-  const navigateToRecommend = () => {
-    navigate("/recommend");
-  };
+  const mrbeastId = "PLajhkzV2ZQSlOwJMhGYNUi9qck3YBGvMx";
+  const kurzgesagtId = "PLajhkzV2ZQSkzI9BM9qmlo3-mP0Ydxjwn";
+  const tedTalksId = "PLajhkzV2ZQSk0lHEEnAyNiLSYL8hxqSPB";
 
   const playlists = [
     { title: "MrBeast 인기 영상", id: mrbeastId },
     { title: "Kurzgesagt 과학 콘텐츠", id: kurzgesagtId },
     { title: "TED Talks 명강연", id: tedTalksId },
+    // { title: "내 재생목록", id: "PLajhkzV2ZQSnWuPgDvItFs7nOPiA4sx-s" },
   ];
 
   const handled = useRef(false);
@@ -34,15 +29,7 @@ const MultiCarousel = ({ onMainVideoIdReady }) => {
           <div>
             <section key={id}>
               <div className="max-w-[1400px] mx-auto">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-2xl sm:text-3xl font-bold pl-8">{title}</h2>
-                  <div
-                    className="cursor-pointer underline"
-                    onClick={navigateToRecommend}
-                  >
-                    영상 더보기
-                  </div>
-                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold pl-8">{title}</h2>
                 <Carousel playlistId={id} handleFirstVideoId={handleFirstVideoId} />
               </div>
             </section>

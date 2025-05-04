@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Search from "../common/Search";
 import { FiMenu } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 // 모바일 버전 디자인 수정
 // 디테일 페이지 검색창 모바일 버전 -> 위치 조정
@@ -9,6 +10,11 @@ const Header = ({ onStartClick }) => {
   const location = useLocation();
   const isDetailPage = location.pathname.startsWith("/detail");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const navigateToRecommend = () => {
+    navigate("/recommend");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100">
@@ -28,7 +34,11 @@ const Header = ({ onStartClick }) => {
         {/* 오른쪽: 메뉴들 */}
         <div className="hidden sm:flex items-center gap-4 z-10">
           <nav className="flex items-center gap-2">
-            <a href="#videos" className="text-sm font-medium px-3 py-1">
+            <a
+              href="#videos"
+              className="text-sm font-medium px-3 py-1"
+              onClick={navigateToRecommend}
+            >
               추천영상
             </a>
             <a href="#features" className="text-sm font-medium px-3 py-1">

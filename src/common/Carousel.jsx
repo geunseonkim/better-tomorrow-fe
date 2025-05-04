@@ -10,7 +10,7 @@ import { useVideoDetailsQuery } from "../hooks/useVideoDetails";
 import { videoDataToString } from "../utils/dataFormatUtils";
 
 const Carousel = ({
-  playlistId = "PLoSWVnSA9vG8SK6-_45PAu6RVTaP1zXHf",
+  playlistId = "PLajhkzV2ZQSlOwJMhGYNUi9qck3YBGvMx",
   handleFirstVideoId,
   breakpoints = {
     0: { slidesPerView: 1, slidesPerGroup: 1 },
@@ -22,15 +22,32 @@ const Carousel = ({
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  const { data: playlistData } = usePlaylistVideosQuery(playlistId);
+  // const { data: playlistData } = usePlaylistVideosQuery(playlistId);
+  const { data: playlistData = [] } = usePlaylistVideosQuery(playlistId);
+
   const idsParam = videoDataToString(playlistData);
   const { data: videos } = useVideoDetailsQuery(idsParam);
+
+  // useEffect(() => {
+  //   if (playlistData.length > 0) {
+  //     const onlyIds = playlistData.map((item) => item.videoId);
+  //     console.log("Playlist Video IDs:", onlyIds);
+  //   }
+  // }, [playlistData]);
 
   useEffect(() => {
     if (videos && videos.length > 0) {
       handleFirstVideoId(videos[0].videoId);
     }
   }, [videos, handleFirstVideoId]);
+
+  // 캐러셀 영상 아이디 가져오는 용도
+  // useEffect(() => {
+  //   if (videos && videos.length > 0) {
+  //     const ids = videos.map((v) => v.videoId);
+  //     console.log("Carousel Video IDs:", ids);
+  //   }
+  // }, [videos]);
 
   return (
     <div className="w-full flex justify-center pb-15">
